@@ -10,12 +10,13 @@ const Container = styled.View`
 const HomeText = styled.Text`
   margin: auto;
   font-size: 20px;
+  color: black;
 `
 
 const SecArea = () => {
   return (
     <Container>
-      <HomeText>SecArea</HomeText>
+      <HomeText>지도를 부를까</HomeText>
     </Container>
   )
 }
