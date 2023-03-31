@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import {View,Text,TouchableOpacity} from "react-native";
+import React, { useRef, useState } from 'react';
+import { View, Text, TouchableOpacity, Switch, Modal, Alert } from "react-native";
 import styled from "styled-components";
+import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from '@expo/vector-icons';
+import { Modalize } from 'react-native-modalize';
 
 const Container = styled.View`
   display: flex;
@@ -28,8 +31,47 @@ const SerchBtn = styled.TouchableOpacity`
   margin: auto;
 `
 
+const RecArea = styled.View`
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
+const RecFilter = styled.View`
+  display: flex;
+  flex-direction: row;;
+`
+
+const RecFilterText = styled.TouchableOpacity`
+  padding-left: 10px;
+`
+const OpenBtn = styled.Text`
+  border: 1px solid black;
+  border-radius: 50px;
+  padding: 2px;
+`
+
+const ListArea = styled.View`
+  
+`
+const ModalContainer = styled.View`
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: peachpuff;
+  margin-top: -100px; /* move the modal up by 100px */
+`
+
+const ModalContent = styled.View`
+  padding: 20px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: rosybrown;
+`
 const SecArea = () => {
   const [content, setContent] = useState<string>('');
+  const navigation = useNavigation();
+
   return (
     <Container>
       <SearchArea>
@@ -38,18 +80,28 @@ const SecArea = () => {
           onChangeText={(content: string) => setContent(content)}
           placeholder="검색하세요..."
         />
-        <SerchBtn>
+        <SerchBtn >
           <Text>Btn</Text>
         </SerchBtn>
       </SearchArea>
 
-      <View>
-        <View>
-          <Text>1</Text>
-          <Text>2</Text>
-        </View>
+      <RecArea>
+        <TouchableOpacity>
+          <Text>오늘의 추천맛집</Text>
+        </TouchableOpacity>
 
-      </View>
+        <RecFilter>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            <RecFilterText>
+              <OpenBtn>영업중</OpenBtn>
+            </RecFilterText>
+          </View>
+          <RecFilterText >
+            <Ionicons name="settings" size={24} color="black" />
+          </RecFilterText>
+
+        </RecFilter>
+      </RecArea>
 
     </Container>
   )
