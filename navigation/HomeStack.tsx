@@ -1,6 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MapFilter from "../screens/MapFilter/MapFilter";
+import MyConditionMenu from "../screens/MapCon/MyConditionMenu";
 const NativeStack = createNativeStackNavigator();
 
 const HomeStack = () => {
@@ -16,6 +17,14 @@ const HomeStack = () => {
       <NativeStack.Screen
         name="MapFilter"
         component={MapFilter}
+      />
+      <NativeStack.Screen
+        name="MyConditionMenu"
+        component={MyConditionMenu}
+        options={{
+          headerShown: false
+        }
+        }
       />
     </NativeStack.Navigator>
   )

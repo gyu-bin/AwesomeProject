@@ -72,6 +72,10 @@ const SecArea = () => {
   const [content, setContent] = useState<string>('');
   const navigation = useNavigation();
 
+  const MyConditionMenu = () => {
+    navigation.navigate("HomeStack",{screen: 'MyConditionMenu'})
+  }
+
   return (
     <Container>
       <SearchArea>
@@ -86,7 +90,7 @@ const SecArea = () => {
       </SearchArea>
 
       <RecArea>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={MyConditionMenu}>
           <Text>오늘의 추천맛집</Text>
         </TouchableOpacity>
 
