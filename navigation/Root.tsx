@@ -19,7 +19,7 @@ const Root = () => {
                         headerShown: false,
                     }}
                 >
-                    <Nav.Screen name="Tabs" component={Tabs} />
+                  <Nav.Screen name="Tabs" component={Tabs} />
                   <Nav.Screen name="HomeStack" component={HomeStack} />
                 </Nav.Navigator>
             }

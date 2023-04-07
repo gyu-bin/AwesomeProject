@@ -131,8 +131,8 @@ const Tabs = () => (
         screenOptions={{ tabBarShowLabel: false, headerShown: false }}
         tabBar={(props: any) => <CustomTabBar {...props} />}
     >
-        <Tab.Screen name="Home" component={Home} initialParams={{ activeIcon: "home", inActiveIcon: "home-outline" }} options={{ headerShown: false }} />
-        <Tab.Screen name="SecArea" component={SecArea} initialParams={{ activeIcon: "search", inActiveIcon: "map-outline" }} options={{}} />
+        <Tab.Screen name="Home" component={Home} initialParams={{ activeIcon: "camera", inActiveIcon: "camera-outline" }} options={{ headerShown: false }} />
+        <Tab.Screen name="SecArea" component={SecArea} initialParams={{ activeIcon: "image", inActiveIcon: "image-outline" }} options={{}} />
         <Tab.Screen name="ThirArea" component={ThirArea} initialParams={{ activeIcon: "settings", inActiveIcon: "settings" }} options={{}} />
     </Tab.Navigator>
 );
