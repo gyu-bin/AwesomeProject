@@ -15,9 +15,9 @@ export const album = [
     title: "벚꽃"
   },
   {
-    userName: '정단비',
+    userName: '이건탁',
     albumId: 4,
-    title: "정단비"
+    title: "이건탁"
   },
   {
     userName: '문규빈',
@@ -25,7 +25,7 @@ export const album = [
     title: "문규빈"
   },
   {
-    userName: '아무개',
+    userName: '누구할까',
     albumId: 6,
     title: "아무개"
   }

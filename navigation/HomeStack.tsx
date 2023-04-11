@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import MapFilter from "../screens/MapFilter/MapFilter";
 import ImagePage from "../screens/ImagePage";
+import ImageSelecter from "../screens/ImageSelecter/ImageSelecter";
 const NativeStack = createNativeStackNavigator();
 
 const HomeStack = () => {
@@ -15,16 +15,17 @@ const HomeStack = () => {
       }}
     >
       <NativeStack.Screen
-        name="MapFilter"
-        component={MapFilter}
-      />
-      <NativeStack.Screen
         name="ImagePage"
         component={ImagePage}
         options={{
           headerShown: false
         }
         }
+      />
+      <NativeStack.Screen
+        name="ImageSelecter"
+        component={ImageSelecter}
+        options={{title: '게시글 작성'}}
       />
     </NativeStack.Navigator>
   )
