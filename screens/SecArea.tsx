@@ -24,7 +24,7 @@ const SecArea = () => {
     <Container>
       <MainView>
         <MainText>
-          전시가 좋아
+          2023 갈만한 곳
         </MainText>
       </MainView>
     </Container>

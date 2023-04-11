@@ -78,13 +78,13 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
                 <Shadow distance={3}>
                     <ShadowBox />
                 </Shadow>
-                <SlidingTabContainer tabWidth={TAB_WIDTH}>
+                {/*<SlidingTabContainer tabWidth={TAB_WIDTH}>
                     <SlidingTab style={{ transform: [{ translateX }] }}>
                         <Shadow distance={3} offset={[0, -18]} style={{ borderRadius: TAB_WIDTH }}>
                             <Circle tabWidth={TAB_WIDTH} />
                         </Shadow>
                     </SlidingTab>
-                </SlidingTabContainer>
+                </SlidingTabContainer>*/}
                 <TabBarContainer>
                     {state.routes.map((route, index) => {
                         const { options } = descriptors[route.key];
