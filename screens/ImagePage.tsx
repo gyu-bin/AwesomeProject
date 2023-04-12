@@ -43,14 +43,10 @@ const ImagePage:React.FC<NativeStackScreenProps<any,'ImagePage'>>  = ({
                    route: {
                      params: { galData },
                    },
-                  navigation: { setOptions },
+                  navigation: { setOptions,goBack },
                  }) => {
   const queryClient = useQueryClient();
   const navigation = useNavigation();
-
-  const goBack = () =>{
-    navigation.navigate("HomeStack",{screen: 'Home'})
-  }
 
   useLayoutEffect(() => {
     setOptions({

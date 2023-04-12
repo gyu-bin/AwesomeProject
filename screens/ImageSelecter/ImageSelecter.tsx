@@ -45,7 +45,7 @@ const PhotoImage = styled.Image`
 `
 
 const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
-                         navigation: { setOptions },
+                         navigation: { navigate,setOptions },
                        }) => {
   const navigation = useNavigation();
   const [imageURLs, setImageURLs] = useState([]);
@@ -143,7 +143,7 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
      }
      console.log(album)
      console.log(ImageData)
-    navigation.navigate("HomeStack",{screen: 'Home'})
+     navigate("Tabs",{screen: 'Home'})
   }
 
   return (
