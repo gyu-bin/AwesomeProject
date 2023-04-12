@@ -1,4 +1,4 @@
-import React, { useRef, useState,useEffect } from 'react';
+import React, { useRef, useState, useEffect, useLayoutEffect } from "react";
 import {
   View,
   Text,
@@ -14,9 +14,11 @@ import {
 import styled from "styled-components/native";
 import { useInfiniteQuery, useMutation, useQuery,useQueryClient } from "react-query";
 import { Gallery, GalleryApi, GalleryResponse } from "../api";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Entypo, Ionicons } from "@expo/vector-icons";
 import { album,ImageData } from "./SampleData/SampleData";
 import Pinchable from "react-native-pinchable";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
 const Container = styled.SafeAreaView`
   flex: 1;
   background-color: white;
@@ -37,30 +39,41 @@ const PhotoImage = styled.Image`
   height: 400px;
 `
 
-const ImagePage  = ({
+const ImagePage:React.FC<NativeStackScreenProps<any,'ImagePage'>>  = ({
                    route: {
                      params: { galData },
-                   }
+                   },
+                  navigation: { setOptions },
                  }) => {
   const queryClient = useQueryClient();
+  const navigation = useNavigation();
+
+  const goBack = () =>{
+    navigation.navigate("HomeStack",{screen: 'Home'})
+  }
+
+  useLayoutEffect(() => {
+    setOptions({
+      headerLeft: () =>
+        <TouchableOpacity onPress={goBack}>
+          <Entypo name="chevron-thin-left" size={20} color="black" />
+        </TouchableOpacity>,
+      headerTitle: galData.galData.title,
+      headerTitleStyle: {fontSize: 20}
+    });
+  }, []);
+
   return (
     <Container>
-      <MainView>
-        <MainText>
-          {galData.galData.title}
-        </MainText>
-      </MainView>
-
       <ScrollView
         horizontal={false}
-        scrollEnabled={true}
         contentContainerStyle={{justifyContent: 'center',alignItems: 'center'}}
       >
         {ImageData.filter(item => item.albumId === galData.galData.albumId).map((item)=>{
           return (
             <View style={{ marginBottom: 20}}>
                 <Pinchable>
-                <PhotoImage source={{ uri: item. url}} />
+                <PhotoImage source={{ uri: item. uri}} />
                 </Pinchable>
                 <View>
                   <TouchableOpacity style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-start'}}>
@@ -72,7 +85,6 @@ const ImagePage  = ({
           )
         })}
       </ScrollView>
-
     </Container>
   )
 }

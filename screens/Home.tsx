@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, FlatList, ScrollView, Image, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -20,9 +20,6 @@ const MainText = styled.Text`
   color: black;
   font-size: 30px;
 `
-
-const FolderArea = styled.View``
-
 
 const Home = () => {
   const navigation = useNavigation();
@@ -47,22 +44,19 @@ const Home = () => {
       </MainView>
 
       <ScrollView
-        horizontal={true}
-        contentContainerStyle={{flex:1, flexWrap: 'wrap',justifyContent: 'space-around'}}
+        horizontal={false}
+        contentContainerStyle={{justifyContent: 'center',alignItems: 'center'}}
       >
         {album.map((item)=>{
           return (
             <TouchableOpacity onPress={()=>ChoiceGally(item)}
-                              style={{ marginBottom: 20,justifyContent:'center',alignItems: 'center'}}>
-              <Entypo name="folder" size={100} color="black" style={{alignItems: 'center'}} />
-              <Text style={{color: 'black', width: 100,fontSize: 15, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.userName}</Text>
+                              style={{ marginBottom: 20,alignItems: 'center'}}>
+              <Image style={{width: 350, height: 350}} source={{uri : item.thumbnailImg}}/>
+              <Text style={{color: 'black', width: 100,fontSize: 20, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.title}</Text>
             </TouchableOpacity>
           )
         })}
       </ScrollView>
-
-
-
     </Container>
   )
 }
