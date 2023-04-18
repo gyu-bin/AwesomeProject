@@ -126,14 +126,14 @@ const CustomTabBar: React.FC<BottomTabBarProps> = ({ state, descriptors, navigat
 
 const Tabs = () => (
     <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="SecArea"
         sceneContainerStyle={{ backgroundColor: "white" }}
         screenOptions={{ tabBarShowLabel: false, headerShown: false }}
         tabBar={(props: any) => <CustomTabBar {...props} />}
     >
-        <Tab.Screen name="Home" component={Home} initialParams={{ activeIcon: "camera", inActiveIcon: "camera-outline" }} options={{ headerShown: false }} />
+        <Tab.Screen name="Home" component={Home} initialParams={{ activeIcon: "people", inActiveIcon: "people-outline" }} options={{ headerShown: false }} />
         <Tab.Screen name="SecArea" component={SecArea} initialParams={{ activeIcon: "image", inActiveIcon: "image-outline" }} options={{}} />
-        <Tab.Screen name="ThirArea" component={ThirArea} initialParams={{ activeIcon: "settings", inActiveIcon: "settings" }} options={{}} />
+        <Tab.Screen name="ThirArea" component={ThirArea} initialParams={{ activeIcon: "map", inActiveIcon: "map-outline" }} options={{}} />
     </Tab.Navigator>
 );
 

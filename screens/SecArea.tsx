@@ -1,6 +1,20 @@
-import React, { useRef, useState,useEffect } from 'react';
-import { View, Text, TouchableOpacity, Switch, Modal, Alert, Image, Animated } from "react-native";
+import React, { useRef, useState, useEffect, useCallback } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Switch,
+  Modal,
+  Alert,
+  Image,
+  Animated,
+  Dimensions,
+  ScrollView, Button
+} from "react-native";
 import styled from "styled-components/native";
+import { AntDesign, Entypo } from "@expo/vector-icons";
+import BackgroundScreen from "./BackgroundScreen";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
   flex: 1;
@@ -11,30 +25,130 @@ const MainView = styled.View`
   border-bottom-width: 1px;
   border-bottom-style: solid;
   border-bottom-color: black;
+  flex-direction: row;
+  justify-content: space-between;
 `
-const MainText = styled.Text`
-  color: black;
-  text-align: center;
-  font-size: 30px;
+const ProfileImg = styled.Image`
+  width: 65px;
+  height: 65px;
+  border-radius: 50px;
 `
 
+const MyProfile = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: black;
+`
+const MyContent = styled.Text`
+  font-size: 20px;
+  color: black;
+  padding: 5px 0 0 10px;
+`
+
+const MyAlbum = styled.TouchableOpacity`
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 6px 0;
+`
+const MyAlbumDay = styled.Text`
+  align-items: center;
+  font-size: 25px;
+  text-align: center;
+`
+const FloatingArea = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+`
+
+const FloatingBtn = styled.View`
+    background-color: cornflowerblue;
+  width: 45px;
+  height: 45px;
+  border-radius: 28px;
+  justify-content: center;
+  align-items: center;
+  elevation: 2;
+`
+const FloatingText = styled.Text`
+  color: white;
+  font-size: 30px;
+`
+const MyAlbumTumb = styled.Image``
 const SecArea = () => {
+
+  const windowWidth = Dimensions.get('window').width;
+  const windowHeight = Dimensions.get('window').height;
+  const [showBackground, setShowBackground] = useState(true);
+
+  const handleTimerComplete = () => {
+    setShowBackground(false);
+  };
+  const navigation = useNavigation();
+
+  const ImageSelector = () => {
+    navigation.navigate("HomeStack",{screen: 'ImageSelecter'})
+  }
 
   return (
     <Container>
-      <MainView>
-        <MainText>
-         여긴 뭐하지. 추천좀
-        </MainText>
-      </MainView>
+      {showBackground?(
+        <BackgroundScreen onTimerComplete={handleTimerComplete}/>
+      ):(
+        <ScrollView>
+          <MainView>
+            <ProfileImg source={{uri: 'https://velog.velcdn.com/images/protine/post/8327a477-7d09-483a-91f6-70c3133c5e1c/image.jpeg'}}/>
+            <TouchableOpacity>
+              <Entypo name="dots-three-vertical" size={24} color="black" />
+            </TouchableOpacity>
+          </MainView>
 
-      <View>
-        <Text style={{fontSize: 30, textAlign:'center', color: 'black'}}>
-          명예의 전당 {'\n'}
-          출사지추천{'\n'}
-          뭐지
-        </Text>
-      </View>
+          <MyProfile>
+            <MyContent>이름: 문규빈</MyContent>
+            <MyContent>자기소개: 사진찍는거 좋아함</MyContent>
+          </MyProfile>
+
+          <MyAlbum>
+            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
+            <MyAlbumTumb
+              style={{width: windowWidth-45, height: 150}}
+              source={{uri: 'https://i.pinimg.com/564x/a3/77/b1/a377b17b484d6d509861d451ff76e22b.jpg'}}/>
+          </MyAlbum>
+
+          <MyAlbum>
+            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
+            <MyAlbumTumb
+              style={{width: windowWidth-45, height: 150}}
+              source={{uri: 'https://i.pinimg.com/564x/16/5c/e4/165ce439fa23a0b458f8fe06b9e4ae50.jpg'}}/>
+          </MyAlbum>
+
+          <MyAlbum>
+            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
+            <MyAlbumTumb
+              style={{width: windowWidth-45, height: 150}}
+              source={{uri: 'https://i.pinimg.com/564x/a2/9a/41/a29a41347ae4abcf95ed61cf2eecfc3d.jpg'}}/>
+          </MyAlbum>
+
+          <MyAlbum>
+            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
+            <MyAlbumTumb
+              style={{width: windowWidth-45, height: 150}}
+              source={{uri: 'https://velog.velcdn.com/images/protine/post/8327a477-7d09-483a-91f6-70c3133c5e1c/image.jpeg'}}/>
+          </MyAlbum>
+        </ScrollView>
+        )}
+
+      {showBackground? null :(
+        <FloatingArea onPress={ImageSelector}>
+          <FloatingBtn>
+            <FloatingText><AntDesign name="plus" size={24} color="white" /></FloatingText>
+          </FloatingBtn>
+        </FloatingArea>
+      )}
+
+
     </Container>
   )
 }

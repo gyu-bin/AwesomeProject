@@ -58,7 +58,6 @@ const ImagePage:React.FC<NativeStackScreenProps<any,'ImagePage'>>  = ({
       headerTitleStyle: {fontSize: 20}
     });
   }, []);
-
   return (
     <Container>
       <ScrollView

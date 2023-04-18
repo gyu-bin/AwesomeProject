@@ -4,6 +4,7 @@ import styled from "styled-components/native";
 import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { album } from "./SampleData/SampleData";
+import BackgroundScreen from "./BackgroundScreen";
 const Container = styled.View`
   flex: 1;
   background-color: white;
@@ -22,6 +23,14 @@ const MainText = styled.Text`
 `
 
 const Home = () => {
+
+  const [showBackground, setShowBackground] = useState(true);
+
+  const handleTimerComplete = () => {
+    console.log('handleTimerComplete')
+    setShowBackground(false);
+  };
+
   const navigation = useNavigation();
 
   const ImageSelector = () => {
@@ -33,31 +42,38 @@ const Home = () => {
   }, []);
 
   return (
-    <Container>
-      <MainView>
-        <MainText>
-          찰나록 갤러리
-        </MainText>
-        <TouchableOpacity onPress={ImageSelector} style={{top: 7}}>
-          <AntDesign name="plus" size={30} color="black" />
-        </TouchableOpacity>
-      </MainView>
+  <Container>
+    {showBackground?(
+      <BackgroundScreen onTimerComplete={handleTimerComplete}/>
+    ):(
+      <View>
+        <MainView>
+          <MainText>
+            찰나록 갤러리
+          </MainText>
+          <TouchableOpacity onPress={ImageSelector} style={{top: 7}}>
+            <AntDesign name="plus" size={30} color="black" />
+          </TouchableOpacity>
+        </MainView>
 
-      <ScrollView
-        horizontal={false}
-        contentContainerStyle={{justifyContent: 'center',alignItems: 'center'}}
-      >
-        {album.map((item)=>{
-          return (
-            <TouchableOpacity onPress={()=>ChoiceGally(item)}
-                              style={{ marginBottom: 20,alignItems: 'center'}}>
-              <Image style={{width: 350, height: 350}} source={{uri : item.thumbnailImg}}/>
-              <Text style={{color: 'black', width: 100,fontSize: 20, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.title}</Text>
-            </TouchableOpacity>
-          )
-        })}
-      </ScrollView>
-    </Container>
+        <ScrollView
+          horizontal={false}
+          contentContainerStyle={{justifyContent: 'center',alignItems: 'center'}}
+        >
+          {album.map((item)=>{
+            return (
+              <TouchableOpacity onPress={()=>ChoiceGally(item)}
+                                style={{ marginBottom: 20,alignItems: 'center'}}>
+                <Image style={{width: 350, height: 350}} source={{uri : item.thumbnailImg}}/>
+                <Text style={{color: 'black', width: 100,fontSize: 20, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.title}</Text>
+              </TouchableOpacity>
+            )
+          })}
+        </ScrollView>
+      </View>
+    )}
+  </Container>
+
   )
 }
 
