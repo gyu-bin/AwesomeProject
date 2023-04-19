@@ -270,7 +270,7 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
       </View>
 
       <View>
-        <Text style={{textAlign: 'center', fontSize: 20}}>날짜선택</Text>
+        <Text style={{textAlign: 'center', fontSize: 20}}>여행날짜선택</Text>
         <Calendar
           theme={{
             arrowColor: "#6F6F6F",
@@ -339,7 +339,6 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
           {stars}
           <Text style={{fontSize: 20}}>{rating} / 5</Text>
         </Star>
-
       </StarArea>
 
     </Container>

@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import { AntDesign, Entypo, Feather } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { album } from "./SampleData/SampleData";
-import BackgroundScreen from "./BackgroundScreen";
+import BackgroundScreen from "../components/BackgroundScreen";
 const Container = styled.View`
   flex: 1;
   background-color: white;
@@ -15,11 +15,12 @@ const MainView = styled.View`
   border-bottom-style: solid;
   border-bottom-color: black;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
 `
 const MainText = styled.Text`
   color: black;
   font-size: 30px;
+  text-align: center;
 `
 
 const Home = () => {
@@ -27,7 +28,6 @@ const Home = () => {
   const [showBackground, setShowBackground] = useState(true);
 
   const handleTimerComplete = () => {
-    console.log('handleTimerComplete')
     setShowBackground(false);
   };
 
@@ -46,14 +46,12 @@ const Home = () => {
     {showBackground?(
       <BackgroundScreen onTimerComplete={handleTimerComplete}/>
     ):(
-      <View>
+      <View style={{flex:1}}>
         <MainView>
           <MainText>
-            찰나록 갤러리
+            찰나록
+            <AntDesign name="camera" size={30} color="black" />
           </MainText>
-          <TouchableOpacity onPress={ImageSelector} style={{top: 7}}>
-            <AntDesign name="plus" size={30} color="black" />
-          </TouchableOpacity>
         </MainView>
 
         <ScrollView
@@ -64,7 +62,7 @@ const Home = () => {
             return (
               <TouchableOpacity onPress={()=>ChoiceGally(item)}
                                 style={{ marginBottom: 20,alignItems: 'center'}}>
-                <Image style={{width: 350, height: 350}} source={{uri : item.thumbnailImg}}/>
+                <Image style={{width: 350, height: 200}} source={{uri : item.thumbnailImg}}/>
                 <Text style={{color: 'black', width: 100,fontSize: 20, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.title}</Text>
               </TouchableOpacity>
             )

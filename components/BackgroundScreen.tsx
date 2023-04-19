@@ -1,5 +1,3 @@
-// BackgroundScreen.js
-
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, Dimensions } from "react-native";
 import styled from "styled-components/native";
@@ -14,7 +12,7 @@ const BackgroundScreen = ({ onTimerComplete }) => {
     const timer = setTimeout(() => {
       setTimerFinished(true);
       onTimerComplete();
-    }, 3000);
+    }, 5000);
 
     return () => clearTimeout(timer);
   }, []);

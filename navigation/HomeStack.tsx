@@ -2,6 +2,8 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ImagePage from "../screens/ImagePage";
 import ImageSelecter from "../screens/ImageSelecter/ImageSelecter";
+import AlbumSelector from "../screens/ImageSelecter/AlbumSelector";
+import ImageLook from "../screens/ImageSelecter/ImageLook";
 import Home from "../screens/Home";
 const NativeStack = createNativeStackNavigator();
 
@@ -26,6 +28,20 @@ const HomeStack = () => {
       <NativeStack.Screen
         name="ImagePage"
         component={ImagePage}
+      />
+      <NativeStack.Screen
+        name="AlbumSelector"
+        component={AlbumSelector}
+ /*       options={{
+          headerShown: false
+        }}*/
+      />
+      <NativeStack.Screen
+        name="ImageLook"
+        component={ImageLook}
+        options={{
+          headerShown: false
+        }}
       />
       <NativeStack.Screen
         name="ImageSelecter"
