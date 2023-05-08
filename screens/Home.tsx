@@ -58,9 +58,9 @@ const Home = () => {
           horizontal={false}
           contentContainerStyle={{justifyContent: 'center',alignItems: 'center'}}
         >
-          {album.map((item)=>{
+          {album.map((item,index)=>{
             return (
-              <TouchableOpacity onPress={()=>ChoiceGally(item)}
+              <TouchableOpacity key={index} onPress={()=>ChoiceGally(item)}
                                 style={{ marginBottom: 20,alignItems: 'center'}}>
                 <Image style={{width: 350, height: 200}} source={{uri : item.thumbnailImg}}/>
                 <Text style={{color: 'black', width: 100,fontSize: 20, textAlign: 'center',justifyContent:'center',alignItems: 'center'}}>{item.title}</Text>

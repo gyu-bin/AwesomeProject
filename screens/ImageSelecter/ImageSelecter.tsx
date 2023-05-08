@@ -119,7 +119,7 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
     setOptions({
       headerRight: () =>
         <TouchableOpacity disabled={imageURLs.length<1} onPress={ImageDone}>
-          <Text>다음</Text>
+          <Text>완료</Text>
         </TouchableOpacity>
     });
   }, [imageURLs,content,album,ImageData]);
@@ -167,12 +167,12 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
         mediaType: "photo",
         multiple: true,
         minFiles: 1,
-        maxFiles: 10,
+        maxFiles: 12,
       });
 
       // console.log(newImages.map((image) => image.path))
-      if (imageURLs.length + newImages.length > 10) {
-        toast.show(`이미지는 10개까지 선택할 수 있습니다.`, { type: "warning" });
+      if (imageURLs.length + newImages.length > 12) {
+        toast.show(`이미지는 12개까지 선택할 수 있습니다.`, { type: "warning" });
         return;
       }
       setImageURLs((prev)=>[...prev, ...newImages.map((image) => image.path)]);
@@ -192,25 +192,6 @@ const ImageSelecter:React.FC<NativeStackScreenProps<any,'ImageSelecter'>>  = ({
 
     const newAlbumId = ImageData.length + 1; // Calculate newAlbumId each time
 
-    /*for (let i = 0; i < imageURLs.length; i++) {
-      album.push({
-        userName: 'content',
-        albumId: newAlbumId,
-        title: content,
-        thumbnailImg: 'https://i.pinimg.com/564x/83/c2/f0/83c2f0737c76b93917fe37f6c2c70ead.jpg'
-        // thumbnailImg: thumbNail[i].replace("file:/", "https:"),
-      });
-
-      ImageData.push({
-        albumId: newAlbumId,
-        id: newAlbumId + i + 1,
-        uri: 'https://i.pinimg.com/564x/83/c2/f0/83c2f0737c76b93917fe37f6c2c70ead.jpg'
-        // uri: imageURLs[i].replace("file:/", "https:"),
-      });
-    }*/
-
-   /* console.log(album);
-    console.log(ImageData);*/
     console.log(selectedDate,rating)
     navigate("Tabs", { screen: 'SecArea' });
   };

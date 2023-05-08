@@ -15,6 +15,7 @@ import styled from "styled-components/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import BackgroundScreen from "../components/BackgroundScreen";
 import { useNavigation } from "@react-navigation/native";
+import { album, User } from "./SampleData/SampleData";
 
 const Container = styled.View`
   flex: 1;
@@ -39,12 +40,11 @@ const ProfileImg = styled.Image`
 const BannerBack = styled.ImageBackground`
   width: 100%;
   height: 100%;
-  flex: 1;
 `
 
 const MyProfile = styled.View``
 const MyContent = styled.Text`
-  font-size: 25px;
+  font-size: 30px;
   color: black;
   padding: 5px 0 0 10px;
 `
@@ -56,10 +56,20 @@ const MyAlbum = styled.TouchableOpacity`
   align-items: center;
   margin: 6px 0;
 `
+
+const MyAlbumInfo =styled.View`
+  max-width: 60px;
+`
 const MyAlbumDay = styled.Text`
   align-items: center;
   font-size: 25px;
   text-align: center;
+`
+
+const MyAlbumTitle = styled.Text`
+  font-size: 15px;
+  text-align: center;
+  font-weight: bold;
 `
 const FloatingArea = styled.TouchableOpacity`
   position: absolute;
@@ -81,8 +91,8 @@ const FloatingText = styled.Text`
   font-size: 30px;
 `
 const MyAlbumTumb = styled.Image``
-const SecArea =() => {
 
+const SecArea =() => {
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -97,60 +107,49 @@ const SecArea =() => {
     navigation.navigate("HomeStack",{screen: 'ImageSelecter'})
   }
 
-  const AlbumSelector = () => {
-    navigation.navigate("HomeStack",{screen: 'AlbumSelector'})
-  }
+  const AlbumSelector = useCallback((album: any) => {
+    navigation.navigate("HomeStack",{screen: 'AlbumSelector', params:{galData:{galData:album}}})
+  },[]);
 
-  return (
+   return (
     <Container>
       {showBackground?(
         <BackgroundScreen onTimerComplete={handleTimerComplete}/>
       ):(
         <ScrollView>
-          <MainView>
-            {/*<BannerBack source={{uri: 'https://i.pinimg.com/564x/a3/77/b1/a377b17b484d6d509861d451ff76e22b.jpg'}}>*/}
-            <ProfileImg source={{uri: 'https://velog.velcdn.com/images/protine/post/8327a477-7d09-483a-91f6-70c3133c5e1c/image.jpeg'}}/>
-            <MyProfile>
-              <MyContent>누구누구의 앨범</MyContent>
-            </MyProfile>
-            <TouchableOpacity>
-                  <Entypo name="dots-three-vertical" size={24} color="black" />
-            </TouchableOpacity>
-            {/*</BannerBack>*/}
-          </MainView>
+            {/*뒷배경*/}
+            {User.map((item,index)=>{
+              return(
+                // <BannerBack source={{uri: item.backImage}}>
+                <MainView key={index}>
+                  <ProfileImg source={{uri: item.profile}}/>
+                  <MyProfile>
+                    <MyContent>{item.name}</MyContent>
+                  </MyProfile>
+                  <TouchableOpacity>
+                    <Entypo name="dots-three-vertical" size={24} color="black" />
+                  </TouchableOpacity>
+                </MainView>
+                // </BannerBack>
+              )
+            })}
 
-          {/*<MyProfile>
-            <MyContent>이름: 문규빈</MyContent>
-            <MyContent>자기소개: 사진찍는거 좋아함</MyContent>
-          </MyProfile>*/}
+          <ScrollView>
+            {album.map((item,index)=>{
+              return(
+                <MyAlbum onPress={()=>AlbumSelector(item)} key={index}>
+                  <MyAlbumInfo>
+                    <MyAlbumDay>{item.year}{`\n`}{item.date}{`\n`}</MyAlbumDay>
+                    <MyAlbumTitle>{item.title}</MyAlbumTitle>
+                  </MyAlbumInfo>
+                  <MyAlbumTumb
+                    style={{width: windowWidth-45, height: 150,  }}
+                    source={{uri: item.thumbnailImg}}/>
+                </MyAlbum>
+              )
+            })}
+          </ScrollView>
 
-          <MyAlbum onPress={AlbumSelector}>
-            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
-            <MyAlbumTumb
-              style={{width: windowWidth-45, height: 150}}
-              source={{uri: 'https://i.pinimg.com/564x/a3/77/b1/a377b17b484d6d509861d451ff76e22b.jpg'}}/>
-          </MyAlbum>
-
-          <MyAlbum onPress={AlbumSelector}>
-            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
-            <MyAlbumTumb
-              style={{width: windowWidth-45, height: 150}}
-              source={{uri: 'https://i.pinimg.com/564x/16/5c/e4/165ce439fa23a0b458f8fe06b9e4ae50.jpg'}}/>
-          </MyAlbum>
-
-          <MyAlbum onPress={AlbumSelector}>
-            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
-            <MyAlbumTumb
-              style={{width: windowWidth-45, height: 150}}
-              source={{uri: 'https://i.pinimg.com/564x/a2/9a/41/a29a41347ae4abcf95ed61cf2eecfc3d.jpg'}}/>
-          </MyAlbum>
-
-          <MyAlbum onPress={AlbumSelector}>
-            <MyAlbumDay>2023{`\n`}4.10</MyAlbumDay>
-            <MyAlbumTumb
-              style={{width: windowWidth-45, height: 150}}
-              source={{uri: 'https://velog.velcdn.com/images/protine/post/8327a477-7d09-483a-91f6-70c3133c5e1c/image.jpeg'}}/>
-          </MyAlbum>
         </ScrollView>
         )}
 

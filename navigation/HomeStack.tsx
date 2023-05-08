@@ -39,9 +39,6 @@ const HomeStack = () => {
       <NativeStack.Screen
         name="ImageLook"
         component={ImageLook}
-        options={{
-          headerShown: false
-        }}
       />
       <NativeStack.Screen
         name="ImageSelecter"

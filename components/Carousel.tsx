@@ -35,7 +35,8 @@ interface CarouselProps {
   showIndicator?: boolean;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ pages, pageWidth, gap, offset, renderItem, initialScrollIndex, keyExtractor, ListEmptyComponent, showIndicator }) => {
+const Carousel: React.FC<CarouselProps> = ({ pages, pageWidth, gap, offset,
+                                             renderItem, initialScrollIndex, keyExtractor, ListEmptyComponent, showIndicator }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(initialScrollIndex);
   const onScroll = (e: any) => {
     const newIndex = Math.round(e.nativeEvent.contentOffset.x / (pageWidth + gap));
@@ -61,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({ pages, pageWidth, gap, offset, rend
         renderItem={renderItem}
         ListEmptyComponent={ListEmptyComponent}
       />
-      {showIndicator ? (
+      {/*{showIndicator ? (
         <IndicatorWrapper>
           {pages?.map((page: any, index: number) => (
             <Indicator key={index} focused={index == currentIndex} />
@@ -69,7 +70,7 @@ const Carousel: React.FC<CarouselProps> = ({ pages, pageWidth, gap, offset, rend
         </IndicatorWrapper>
       ) : (
         <></>
-      )}
+      )}*/}
     </Container>
   );
 };

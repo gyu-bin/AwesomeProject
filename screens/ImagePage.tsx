@@ -52,67 +52,76 @@ const ImagePage:React.FC<NativeStackScreenProps<any,'ImagePage'>>  = ({
                    },
                   navigation: { setOptions,goBack },
                  }) => {
-  const queryClient = useQueryClient();
-  const navigation = useNavigation();
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
-  const [isHeartFull, setIsHeartFull] = useState(false);
+  const [isHeartFull, setIsHeartFull] = useState<boolean>(false);
 
-  const handlePress = () => {
-    setIsHeartFull(!isHeartFull);
+  const [like,setLike] = useState([...ImageData])
+
+  const handlePress = (index) => {
+    const updatedItem = {...like[index], likeCount: like[index].likeCount + 1};
+    setLike(like.map((item, idx) => idx === index ? updatedItem : item));
+    setIsHeartFull(true);
   };
+
+  const LikeCancle = (index) => {
+    const updatedItem = {...like[index], likeCount: like[index].likeCount - 1};
+    setLike(like.map((item, idx) => idx === index ? updatedItem : item));
+    setIsHeartFull(false);
+  };
+
   useLayoutEffect(() => {
-    setOptions({
-      headerLeft: () =>
-        <TouchableOpacity onPress={goBack}>
-          <Entypo name="chevron-thin-left" size={20} color="black" />
-        </TouchableOpacity>,
-      headerTitle: '여행지명',
-      // headerTitle: galData.galData.title,
-      headerTitleStyle: {fontSize: 20}
-    });
+    {album.filter(item => item.albumId === galData.galData.albumId).map((item)=>{
+      setOptions({
+        headerLeft: () =>
+          <TouchableOpacity onPress={goBack}>
+            <Entypo name="chevron-thin-left" size={20} color="black" />
+          </TouchableOpacity>,
+        headerTitle: item.title,
+        headerTitleStyle: {fontSize: 20},
+      });
+    })}
   }, []);
 
    return (
-    <View>
-      <ImageSlider
-        data={[
-          {img:"https://i.pinimg.com/564x/16/5c/e4/165ce439fa23a0b458f8fe06b9e4ae50.jpg"},
-          {img:"https://i.pinimg.com/564x/a2/9a/41/a29a41347ae4abcf95ed61cf2eecfc3d.jpg"},
-          {img:"https://i.pinimg.com/564x/cb/66/9f/cb669f75dceb59029a632b1e83219ae6.jpg"},
-          {img:"https://i.pinimg.com/564x/8e/40/ee/8e40ee99aeeb106deb96286e9b36e4a6.jpg"},
-          {img:"https://i.pinimg.com/564x/67/c5/17/67c517a94b2a89a3f82de095a855f665.jpg"},
-          {img:"https://i.pinimg.com/564x/ee/28/e3/ee28e3128e05c1584709392ef66153e3.jpg"},
-          {img:"https://i.pinimg.com/564x/6b/f3/4d/6bf34dff6e8e49a73f3e757d83ef0bce.jpg"},
-          {img:"https://i.pinimg.com/564x/79/72/79/797279d3b8df1327aa5e0af96bc21669.jpg"},
-          {img:"https://i.pinimg.com/564x/c1/12/be/c112be6d209a2c5f3425c3bbc3858f5e.jpg"},
-          {img:"https://i.pinimg.com/564x/d3/8e/00/d38e00059438082215a0d1b3dbc1c61b.jpg"},
-          {img:"https://i.pinimg.com/564x/c9/32/bf/c932bfa7a67a855e8bcbf4004cf36c65.jpg"},
-          {img:"https://i.pinimg.com/564x/88/74/e7/8874e782500c3fff2f44e23ed267f3ea.jpg"},
-          {img:"https://i.pinimg.com/564x/7e/02/16/7e02163ce5313d8ad24c59417a0c6216.jpg"}
-        ]}
-        preview={true}
-        caroselImageStyle={{width: windowWidth, height: windowHeight-150, resizeMode: 'cover'}}
-        activeIndicatorStyle={{top: 30, backgroundColor: 'orange'}}
-        inActiveIndicatorStyle={{top:30, width: 5, height:5}}
-        previewImageStyle={{width: windowWidth-45, height: windowHeight, resizeMode: 'cover'}}
-        closeIconColor={'white'}
-      />
-
-      <HeartArea>
-        <TouchableOpacity onPress={handlePress}>
-          <Ionicons
-            name={isHeartFull ? "heart" : "heart-outline"}
-            size={25}
-            color="#FF551F"
-            style={{ marginLeft: -2, marginRight: -2 }}
-          />
-        </TouchableOpacity>
-        <Text style={{paddingLeft: 7, fontSize: 20}}>23</Text>
-      </HeartArea>
-
-    </View>
-
+     <Container>
+       <ScrollView horizontal={true} style={{height: '80%'}}>
+         {like.filter(item => item.albumId === galData.galData.albumId).map((item,index)=>{
+           return(
+             <View>
+               <ImageSlider
+                 data={[
+                   {img: item.uri}
+                 ]}
+                 caroselImageStyle={{width: windowWidth, height: windowHeight-150, resizeMode: 'cover'}}
+                 showIndicator={false}
+                 preview={false}
+               />
+               <HeartArea>
+                 <TouchableOpacity onPress={()=>(isHeartFull? LikeCancle(index):handlePress(index))}>
+                   {item.likeYn? (
+                     <Ionicons
+                       name={isHeartFull ? "heart-outline" : "heart"}
+                       size={25}
+                       color="#FF551F"
+                       style={{ marginLeft: -2, marginRight: -2 }}
+                     />
+                   ):(
+                     <Ionicons
+                       name={isHeartFull ? "heart" : "heart-outline"}
+                       size={25}
+                       color="#FF551F"
+                       style={{ marginLeft: -2, marginRight: -2 }}
+                     />
+                   )}
+                 </TouchableOpacity>
+                 <Text style={{paddingLeft: 7, fontSize: 20}}>{item.likeCount}</Text>
+               </HeartArea>
+             </View>
+           )
+         })}
+       </ScrollView>
+     </Container>
   )
 }
 

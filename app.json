@@ -1,4 +1,19 @@
 {
-  "name": "AwesomeProject",
-  "displayName": "AwesomeProject"
+  "expo": {
+    "name": "AwesomeProject",
+    "slug": "AwesomeProject",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "2eb44ef5-3b41-440f-8eb4-aa46ed65ebb7"
+      }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/2eb44ef5-3b41-440f-8eb4-aa46ed65ebb7"
+    },
+    "android": {}
+  }
 }
